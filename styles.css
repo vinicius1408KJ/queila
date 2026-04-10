@@ -1501,27 +1501,12 @@ a {
 .reveal-left,
 .reveal-right,
 .reveal-scale {
-    opacity: 0;
+    opacity: 1; /* Forçado para aparecer sempre */
+    transform: none !important; /* Remove qualquer deslocamento inicial */
     transition: 
         opacity 0.9s var(--ease-out-expo) var(--delay, 0s),
         transform 0.9s var(--ease-out-expo) var(--delay, 0s);
     will-change: opacity, transform;
-}
-
-.reveal-up {
-    transform: translateY(50px);
-}
-
-.reveal-left {
-    transform: translateX(-60px);
-}
-
-.reveal-right {
-    transform: translateX(60px);
-}
-
-.reveal-scale {
-    transform: scale(0.9);
 }
 
 .reveal-up.revealed,

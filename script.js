@@ -341,8 +341,9 @@ document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
 function initHeroAnimations() {
     const heroLines = document.querySelectorAll('.hero-line');
     heroLines.forEach((line, i) => {
-        line.style.opacity = '0';
-        line.style.transform = 'translateY(30px)';
+        // Removido o bloqueio de opacidade inicial
+        line.style.opacity = '1';
+        line.style.transform = 'translateY(0)';
         
         setTimeout(() => {
             line.style.transition = 'all 1s cubic-bezier(0.16, 1, 0.3, 1)';
