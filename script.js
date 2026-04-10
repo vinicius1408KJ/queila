@@ -89,19 +89,28 @@ function initMobileMenu() {
 function initRevealAnimations() {
     const reveals = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
     
+    // Fail-safe: Se após 3 segundos nada aparecer, forçamos a exibição
+    const safetyTimer = setTimeout(() => {
+        document.body.classList.add('force-reveal');
+        console.log('Animação forçada por segurança');
+    }, 3000);
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
                 observer.unobserve(entry.target);
+                // Se algo foi revelado, limpamos o timer de segurança (opcional, melhor deixar pra garantir tudo)
             }
         });
     }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -60px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
     
-    reveals.forEach(el => observer.observe(el));
+    reveals.forEach(el => {
+        observer.observe(el);
+    });
 }
 
 // ===== HERO PARTICLES =====
@@ -341,12 +350,11 @@ document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
 function initHeroAnimations() {
     const heroLines = document.querySelectorAll('.hero-line');
     heroLines.forEach((line, i) => {
-        // Removido o bloqueio de opacidade inicial
-        line.style.opacity = '1';
-        line.style.transform = 'translateY(0)';
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(30px)';
         
         setTimeout(() => {
-            line.style.transition = 'all 1s cubic-bezier(0.16, 1, 0.3, 1)';
+            line.style.transition = 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
             line.style.opacity = '1';
             line.style.transform = 'translateY(0)';
         }, 300 + i * 200);
