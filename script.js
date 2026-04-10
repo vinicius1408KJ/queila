@@ -1,10 +1,10 @@
-// ===== SMOOTH LOADER =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Small delay for fonts to load
-    setTimeout(() => {
-        initAll();
-    }, 100);
+    initAll();
 });
+// Fallback if DOMContentLoaded already fired
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initAll();
+}
 
 function initAll() {
     initCursorGlow();
@@ -338,7 +338,7 @@ document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
 });
 
 // ===== TEXT SPLIT ANIMATION ON HERO =====
-window.addEventListener('load', () => {
+function initHeroAnimations() {
     const heroLines = document.querySelectorAll('.hero-line');
     heroLines.forEach((line, i) => {
         line.style.opacity = '0';
@@ -350,4 +350,11 @@ window.addEventListener('load', () => {
             line.style.transform = 'translateY(0)';
         }, 300 + i * 200);
     });
-});
+}
+
+// Chamar no final de initAll ou quando o documento carregar
+if (document.readyState === 'complete') {
+    initHeroAnimations();
+} else {
+    window.addEventListener('load', initHeroAnimations);
+}
