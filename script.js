@@ -95,27 +95,8 @@ function initMobileMenu() {
 function initRevealAnimations() {
     const reveals = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
     
-    // Fail-safe: Se após 1.5 segundos nada aparecer, forçamos a exibição
-    const safetyTimer = setTimeout(() => {
-        document.body.classList.add('force-reveal');
-    }, 1500);
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                observer.unobserve(entry.target);
-                // Se algo foi revelado, limpamos o timer de segurança (opcional, melhor deixar pra garantir tudo)
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-    
-    reveals.forEach(el => {
-        observer.observe(el);
-    });
+    // Forçamos a classe revealed em tudo imediatamente
+    reveals.forEach(el => el.classList.add('revealed'));
 }
 
 // ===== HERO PARTICLES =====
@@ -355,8 +336,9 @@ document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
 function initHeroAnimations() {
     const heroLines = document.querySelectorAll('.hero-line');
     heroLines.forEach((line, i) => {
-        line.style.opacity = '0';
-        line.style.transform = 'translateY(30px)';
+        // Garantindo visibilidade imediata
+        line.style.opacity = '1';
+        line.style.transform = 'translateY(0)';
         
         setTimeout(() => {
             line.style.transition = 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)';

@@ -1496,30 +1496,24 @@ a {
     50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.55), 0 0 0 12px rgba(37, 211, 102, 0.1); }
 }
 
-/* ===== REVEAL ANIMATIONS ===== */
-/* As animações só se aplicam se o JS estiver ativo e funcional */
-.js-reveal .reveal-up,
-.js-reveal .reveal-left,
-.js-reveal .reveal-right,
-.js-reveal .reveal-scale {
-    opacity: 0;
-    transition: 
-        opacity 1.2s var(--ease-out-expo) var(--delay, 0s),
-        transform 1.2s var(--ease-out-expo) var(--delay, 0s);
-    will-change: opacity, transform;
+/* ===== REVEAL ANIMATIONS (ESTABILIZADAS) ===== */
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-scale {
+    opacity: 1 !important; /* Sempre visível */
+    visibility: visible !important;
+    transition: transform 1.2s var(--ease-out-expo);
+    will-change: transform;
 }
 
-.js-reveal .reveal-up { transform: translateY(40px); }
-.js-reveal .reveal-left { transform: translateX(-40px); }
-.js-reveal .reveal-right { transform: translateX(40px); }
-.js-reveal .reveal-scale { transform: scale(0.94); }
+.reveal-up { transform: translateY(0); }
+.reveal-left { transform: translateX(0); }
+.reveal-right { transform: translateX(0); }
+.reveal-scale { transform: scale(1); }
 
-/* Classe que ativa a animação ou força a visibilidade */
-.revealed,
-.force-reveal .reveal-up,
-.force-reveal .reveal-left,
-.force-reveal .reveal-right,
-.force-reveal .reveal-scale {
+/* Se o JS funcionar, ele apenas reaplica o brilho/suavidade */
+.revealed {
     opacity: 1 !important;
     transform: translate(0, 0) scale(1) !important;
 }
