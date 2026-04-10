@@ -1,9 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
+// ===== PRE-LOAD GUARD =====
+let isInitialized = false;
+function safeInit() {
+    if (isInitialized) return;
+    isInitialized = true;
     initAll();
-});
-// Fallback if DOMContentLoaded already fired
-if (document.readyState === 'interactive' || document.readyState === 'complete') {
-    initAll();
+}
+
+document.addEventListener('DOMContentLoaded', safeInit);
+window.addEventListener('load', safeInit);
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    safeInit();
 }
 
 function initAll() {
@@ -89,11 +95,10 @@ function initMobileMenu() {
 function initRevealAnimations() {
     const reveals = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
     
-    // Fail-safe: Se após 3 segundos nada aparecer, forçamos a exibição
+    // Fail-safe: Se após 1.5 segundos nada aparecer, forçamos a exibição
     const safetyTimer = setTimeout(() => {
         document.body.classList.add('force-reveal');
-        console.log('Animação forçada por segurança');
-    }, 3000);
+    }, 1500);
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

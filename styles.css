@@ -1497,10 +1497,11 @@ a {
 }
 
 /* ===== REVEAL ANIMATIONS ===== */
-.reveal-up,
-.reveal-left,
-.reveal-right,
-.reveal-scale {
+/* As animações só se aplicam se o JS estiver ativo e funcional */
+.js-reveal .reveal-up,
+.js-reveal .reveal-left,
+.js-reveal .reveal-right,
+.js-reveal .reveal-scale {
     opacity: 0;
     transition: 
         opacity 1.2s var(--ease-out-expo) var(--delay, 0s),
@@ -1508,28 +1509,19 @@ a {
     will-change: opacity, transform;
 }
 
-.reveal-up { transform: translateY(40px); }
-.reveal-left { transform: translateX(-40px); }
-.reveal-right { transform: translateX(40px); }
-.reveal-scale { transform: scale(0.94); }
+.js-reveal .reveal-up { transform: translateY(40px); }
+.js-reveal .reveal-left { transform: translateX(-40px); }
+.js-reveal .reveal-right { transform: translateX(40px); }
+.js-reveal .reveal-scale { transform: scale(0.94); }
 
-/* Classe que ativa a animação */
-.revealed {
-    opacity: 1 !important;
-    transform: translate(0, 0) scale(1) !important;
-}
-
-/* Fallback: se o JS falhar ou demorar demais, mostramos tudo */
-.no-js .reveal-up,
-.no-js .reveal-left,
-.no-js .reveal-right,
-.no-js .reveal-scale,
+/* Classe que ativa a animação ou força a visibilidade */
+.revealed,
 .force-reveal .reveal-up,
 .force-reveal .reveal-left,
 .force-reveal .reveal-right,
 .force-reveal .reveal-scale {
     opacity: 1 !important;
-    transform: none !important;
+    transform: translate(0, 0) scale(1) !important;
 }
 
 /* ===== RESPONSIVE ===== */
